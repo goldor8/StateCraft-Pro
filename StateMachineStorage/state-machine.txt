@@ -1,0 +1,11 @@
+STATES:
+-name:q1
+-name:q0
+-name:q2
+CHARACTERS:
+-symbol:b
+-symbol:a
+TRANSITIONS:
+-from:q0,to:q1,condition:a
+-from:q1,to:q2,condition:b
+-from:q2,to:q0,condition:a
