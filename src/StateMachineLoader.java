@@ -87,7 +87,28 @@ public class StateMachineLoader {
                         String from = parts[0].split(":")[1];
                         String to = parts[1].split(":")[1];
                         String condition = parts[2].split(":")[1];
-                        stateMachine.transitions.add(new Transition(new State(from), new State(to), new Character(condition)));
+
+                        State fromState = null;
+                        State toState = null;
+                        Character conditionChar = null;
+                        for (State state : stateMachine.states) {
+                            if(state.name.equals(from)){
+                                fromState = state;
+                            }
+                            if(state.name.equals(to)){
+                                toState = state;
+                            }
+                        }
+
+                        for (Character character : stateMachine.characters) {
+                            if(character.symbol.equals(condition)){
+                                conditionChar = character;
+                            }
+                        }
+
+                        if(fromState == null || toState == null || conditionChar == null) throw new RuntimeException("Invalid file format (missing state or character)");
+
+                        stateMachine.transitions.add(new Transition(fromState, toState, conditionChar));
                     } else {
                         throw new RuntimeException("Invalid file format");
                     }
